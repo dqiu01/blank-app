@@ -17,17 +17,40 @@ def check_winner(board):
             return board[a]
     return None
 
-# CSS for layout adjustments
+# Add custom CSS for responsive grid layout
 st.markdown(
     """
     <style>
+    /* Main container adjustments for responsiveness */
     div.block-container {
         padding: 1rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 600px; /* Prevent grid from stretching too wide */
     }
+
+    /* Button styling for Tic-Tac-Toe grid */
     div.stButton > button {
-        height: 60px;
-        width: 60px;
-        margin: 2px;
+        height: auto;
+        width: 100%; /* Ensure buttons stretch to column width */
+        aspect-ratio: 1; /* Maintain square buttons */
+        font-size: 1.2rem; /* Increase font size */
+        margin: 5px; /* Add spacing between buttons */
+    }
+
+    /* Adjust Reset button to fit content */
+    div.stButton > button:contains("Reset Game") {
+        font-size: 1rem;
+        padding: 10px 20px;
+    }
+
+    /* Columns styling to center content */
+    div[data-testid="column"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     </style>
     """,
@@ -36,12 +59,12 @@ st.markdown(
 
 # Display game board
 st.title("Tic-Tac-Toe")
-st.write("Current Player:", st.session_state.current_player)
+st.write(f"Current Player: {st.session_state.current_player}")
 
 # Render the game board
 with st.container():
     for i in range(3):  # Loop over rows
-        cols = st.columns([1, 1, 1])  # Equal-width columns
+        cols = st.columns([1, 0.1, 1, 0.1, 1])  # Equal-width columns
         for j in range(3):  # Loop over columns
             idx = i * 3 + j
             with cols[j]:
