@@ -40,7 +40,7 @@ st.write("Current Player:", st.session_state.current_player)
 
 # Render the game board
 for i in range(3):  # Loop over rows
-    cols = st.columns([1,1,1])  # Create 3 columns for the grid
+    cols = st.columns([1, 1, 1])  # Create 3 columns for the grid
     for j in range(3):  # Loop over columns
         idx = i * 3 + j  # Calculate the index of the cell
         with cols[j]:  # Place the button in the correct column
