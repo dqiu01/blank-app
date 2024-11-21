@@ -39,25 +39,24 @@ st.title("Tic-Tac-Toe")
 st.write("Current Player:", st.session_state.current_player)
 
 # Render the game board
-for i in range(3):  # Loop over rows
-    cols = st.columns([1, 1, 1])  # Create 3 columns for the grid
-    for j in range(3):  # Loop over columns
-        idx = i * 3 + j  # Calculate the index of the cell
-        with cols[j]:  # Place the button in the correct column
-            if st.button(
-                st.session_state.board[idx] if st.session_state.board[idx] != ' ' else " ",
-                key=f"button_{i}_{j}"  # Use row and column indices to create a unique key
-            ):
-                if st.session_state.board[idx] == ' ':
-                    # Update the board and check for a winner
-                    st.session_state.board[idx] = st.session_state.current_player
-                    winner = check_winner(st.session_state.board)
-                    if winner:
-                        st.success(f"Player {winner} wins!")
-                        st.session_state.board = [' '] * 9  # Reset board
-                    else:
-                        # Switch to the next player
-                        st.session_state.current_player = 'O' if st.session_state.current_player == 'X' else 'X'
+with st.container():
+    for i in range(3):  # Loop over rows
+        cols = st.columns([1, 1, 1])  # Equal-width columns
+        for j in range(3):  # Loop over columns
+            idx = i * 3 + j
+            with cols[j]:
+                if st.button(
+                    st.session_state.board[idx] if st.session_state.board[idx] != ' ' else " ",
+                    key=f"button_{i}_{j}"  # Unique key for each button
+                ):
+                    if st.session_state.board[idx] == ' ':
+                        st.session_state.board[idx] = st.session_state.current_player
+                        winner = check_winner(st.session_state.board)
+                        if winner:
+                            st.success(f"Player {winner} wins!")
+                            st.session_state.board = [' '] * 9  # Reset board
+                        else:
+                            st.session_state.current_player = 'O' if st.session_state.current_player == 'X' else 'X'
 
 # Reset button
 if st.button("Reset Game"):
