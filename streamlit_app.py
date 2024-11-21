@@ -17,10 +17,28 @@ def check_winner(board):
             return board[a]
     return None
 
+# CSS for layout adjustments
+st.markdown(
+    """
+    <style>
+    div.block-container {
+        padding: 1rem;
+    }
+    div.stButton > button {
+        height: 60px;
+        width: 60px;
+        margin: 2px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Display game board
 st.title("Tic-Tac-Toe")
 st.write("Current Player:", st.session_state.current_player)
 
+# Render the game board
 for i in range(3):  # Loop over rows
     cols = st.columns([1,1,1])  # Create 3 columns for the grid
     for j in range(3):  # Loop over columns
